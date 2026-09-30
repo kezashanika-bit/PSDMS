@@ -1,0 +1,3020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1e3a8a">
+<title>PSDMS – Private School Directory & Management System</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 55%, #0ea5e9 100%);
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+
+.card-hover {
+  transition: 0.25s;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #2563eb;
+  color: #2563eb;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.nav-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-weight: 700;
+  color: #1e3a8a;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: #2563eb;
+}
+
+.mobile-toggle {
+  display: block;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobile-menu {
+  display: none;
+  border-top: 1px solid #e2e8f0;
+  background: #fff;
+  padding: 1rem;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.hero {
+  color: #fff;
+  padding: 4rem 0;
+}
+
+.hero-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #bfdbfe;
+  max-width: 36rem;
+  margin: 1rem 0;
+}
+
+.hero-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.stats-box {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.stats-box .num {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.section {
+  padding: 3.5rem 0;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.grid-3 {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.feature {
+  padding: 1.5rem;
+}
+
+.feature-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.feature h3 {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature p {
+  font-size: 0.875rem;
+  color: #64748b;
+}
+
+.school-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.school-card-head {
+  background: linear-gradient(to right, #1d4ed8, #3b82f6);
+  color: #fff;
+  padding: 1rem 1.25rem;
+}
+
+.school-card-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  background: #f8fafc;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.form-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: 2px solid #3b82f6;
+  border-color: transparent;
+}
+
+.flash {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.flash.show {
+  display: flex;
+}
+
+.flash-success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.flash-danger {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.flash-info {
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.footer {
+  background: #0f172a;
+  color: #94a3b8;
+  margin-top: 4rem;
+  padding: 2rem 0;
+}
+
+.footer-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.footer h3,
+.footer h4 {
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.footer p,
+.footer a {
+  font-size: 0.875rem;
+}
+
+.footer a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  border-top: 1px solid #1e293b;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #64748b;
+  padding: 1rem 0;
+  margin-top: 1.5rem;
+}
+
+.pay-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.875rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.ussd-box {
+  font-family: ui-monospace, monospace;
+  letter-spacing: 0.05em;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.notif-panel {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  width: 20rem;
+  max-width: 90vw;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  z-index: 50;
+  overflow: hidden;
+}
+
+.notif-panel.show {
+  display: block;
+}
+
+.badge-count {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+  }
+  .mobile-toggle {
+    display: none;
+  }
+  .hero-grid {
+    flex-direction: row;
+  }
+  .hero h1 {
+    font-size: 3rem;
+  }
+  .stats-box {
+    display: grid;
+  }
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .footer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .schools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .schools-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .notif-panel {
+    position: fixed;
+    left: 0.5rem;
+    right: 0.5rem;
+    width: auto;
+    top: 3.5rem;
+  }
+  table {
+    font-size: 0.75rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" onclick="showPage('home')" class="nav-brand">
+      🎓 PSDMS
+    </a>
+
+    <div class="nav-links">
+      <a href="#" onclick="showPage('home')">Home</a>
+
+      <div style="position:relative" id="notif-wrap">
+        <button type="button"
+                onclick="toggleNotifPanel()"
+                style="background:none;border:none;cursor:pointer;position:relative;padding:0.5rem;font-size:1.1rem"
+                title="Notifications">
+          🔔
+          <span id="notif-badge" class="badge-count" style="display:none">0</span>
+        </button>
+
+        <div id="notif-panel" class="notif-panel">
+          <div style="padding:0.75rem 1rem;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;background:#f8fafc">
+            <span style="font-weight:600;font-size:0.875rem">Notifications</span>
+            <button type="button"
+                    onclick="markAllNotifsRead()"
+                    style="background:none;border:none;color:#2563eb;font-size:0.75rem;cursor:pointer">
+              Mark all read
+            </button>
+          </div>
+          <div id="notif-list" style="max-height:20rem;overflow-y:auto"></div>
+        </div>
+      </div>
+
+      <span id="auth-area"></span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:0.25rem">
+      <button type="button"
+              onclick="toggleNotifPanel()"
+              class="mobile-toggle"
+              style="position:relative">
+        🔔
+        <span id="notif-badge-mobile" class="badge-count" style="display:none">0</span>
+      </button>
+
+      <button class="mobile-toggle"
+              onclick="document.getElementById('mobile-menu').style.display =
+                       document.getElementById('mobile-menu').style.display === 'block'
+                       ? 'none' : 'block'">
+        ☰
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="#" onclick="showPage('home');toggleMobile()">Home</a>
+    <a href="#" onclick="toggleNotifPanel();toggleMobile()">🔔 Notifications</a>
+    <div id="mobile-auth"></div>
+  </div>
+</nav>
+
+<!-- FLASH MESSAGE -->
+<div id="flash" class="flash" style="margin-top:0.75rem"></div>
+
+<main style="flex:1">
+
+  <!-- ==================== HOME PAGE ==================== -->
+  <div id="page-home" class="page active">
+    <section class="gradient-bg hero">
+      <div class="container hero-grid">
+        <div>
+          <h1>
+            Private School Directory<br>
+            <span style="color:#bae6fd">& Management System</span>
+          </h1>
+          <p>
+            Discover accredited private secondary schools across Rwanda.
+            View programmes, contacts, apply online and manage applications securely.
+          </p>
+          <div class="hero-btns">
+            <button onclick="showPage('login')"
+                    class="btn"
+                    style="background:#fff;color:#1e3a8a">
+              Login
+            </button>
+            <button onclick="showPage('register')"
+                    class="btn"
+                    style="background:rgba(30,58,138,0.4);border:1px solid rgba(255,255,255,0.3);color:#fff">
+              Registration
+            </button>
+          </div>
+        </div>
+
+        <div class="stats-box">
+          <div>
+            <div class="num" id="stat-schools">50</div>
+            <div style="font-size:0.875rem;color:#bfdbfe;margin-top:0.25rem">Private TSS</div>
+          </div>
+          <div>
+            <div class="num">15+</div>
+            <div style="font-size:0.875rem;color:#bfdbfe;margin-top:0.25rem">Districts</div>
+          </div>
+          <div>
+            <div class="num">100%</div>
+            <div style="font-size:0.875rem;color:#bfdbfe;margin-top:0.25rem">NESA Accredited</div>
+          </div>
+          <div>
+            <div class="num">24/7</div>
+            <div style="font-size:0.875rem;color:#bfdbfe;margin-top:0.25rem">Online Apply</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container">
+      <h2 class="section-title">Everything You Need</h2>
+      <div class="grid-3">
+        <div class="card card-hover feature">
+          <div class="feature-icon" style="background:#dbeafe;color:#2563eb">🏫</div>
+          <h3>Accredited Schools</h3>
+          <p>Complete private TSS list with trades, boarding status and contacts from NESA October 2024.</p>
+        </div>
+        <div class="card card-hover feature">
+          <div class="feature-icon" style="background:#d1fae5;color:#059669">📝</div>
+          <h3>Online Application</h3>
+          <p>Register, choose school & programme, submit and track status in real time.</p>
+        </div>
+        <div class="card card-hover feature">
+          <div class="feature-icon" style="background:#fef3c7;color:#d97706">📱</div>
+          <h3>Flexible Payments</h3>
+          <p>MTN MoMo, Airtel Money, Bank Transfer or Card – reference generated instantly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom:2.5rem">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:0.75rem;margin-bottom:1.5rem">
+        <div>
+          <h2 style="font-size:1.5rem;font-weight:700">Private Secondary Schools</h2>
+          <p style="color:#64748b;font-size:0.875rem">
+            Browse the list. Login or register to view full fees and apply.
+          </p>
+        </div>
+        <button onclick="showPage('schools')"
+                style="background:none;border:none;color:#2563eb;font-weight:600;font-size:0.875rem;cursor:pointer">
+          View all →
+        </button>
+      </div>
+      <div id="home-schools"
+           style="display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== SCHOOLS PAGE ==================== -->
+  <div id="page-schools" class="page">
+    <div class="container" style="padding:2.5rem 0">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1rem;margin-bottom:2rem">
+        <div>
+          <h1 style="font-size:1.875rem;font-weight:700">Private Secondary Schools</h1>
+          <p style="color:#64748b;margin-top:0.25rem">
+            Accredited private secondary schools • NESA / MINEDUC data • 2024-2025
+          </p>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.75rem;width:100%;max-width:28rem">
+          <input id="search-q"
+                 type="text"
+                 placeholder="Search school or trade..."
+                 style="flex:1;min-width:140px;border:1px solid #cbd5e1;border-radius:0.5rem;padding:0.6rem 1rem;font-size:0.875rem"
+                 oninput="renderSchools()">
+          <select id="filter-district"
+                  style="border:1px solid #cbd5e1;border-radius:0.5rem;padding:0.6rem 0.75rem;font-size:0.875rem"
+                  onchange="renderSchools()">
+            <option value="">All Districts</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:0.75rem;padding:1rem;font-size:0.875rem;color:#1e3a8a;margin-bottom:1.5rem">
+        <strong>Scope note:</strong>
+        Official MINEDUC 2024/25 data records <b>172 private schools</b>.
+        This directory lists <b>50 selected private secondary & TSS schools</b>
+        from NESA accredited lists.
+        For the complete register contact NESA or your District Education Office.
+      </div>
+
+      <div id="schools-grid"
+           class="schools-grid"
+           style="display:grid;gap:1.5rem">
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCHOOL DETAIL ==================== -->
+  <div id="page-detail" class="page">
+    <div class="container"
+         style="max-width:56rem;padding:2.5rem 0"
+         id="detail-content">
+    </div>
+  </div>
+
+  <!-- ==================== HOW TO APPLY ==================== -->
+  <div id="page-howto" class="page">
+    <div class="container" style="max-width:48rem;padding:3rem 0">
+      <h1 style="font-size:1.875rem;font-weight:700;margin-bottom:0.5rem">How to Apply</h1>
+      <p style="color:#64748b;margin-bottom:2.5rem">
+        Simple steps to join a private Technical Secondary School
+      </p>
+
+      <div style="display:flex;flex-direction:column;gap:2rem">
+        <div style="display:flex;gap:1.25rem">
+          <div style="width:2.5rem;height:2.5rem;background:#2563eb;color:#fff;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.1rem">Create an Account</h3>
+            <p style="color:#64748b;font-size:0.875rem;margin-top:0.25rem">
+              Register as Student/Visitor or as Director Education Officer (DEO).
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1.25rem">
+          <div style="width:2.5rem;height:2.5rem;background:#2563eb;color:#fff;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.1rem">Browse & Choose a School</h3>
+            <p style="color:#64748b;font-size:0.875rem;margin-top:0.25rem">
+              Filter by district or search programmes.
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1.25rem">
+          <div style="width:2.5rem;height:2.5rem;background:#2563eb;color:#fff;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.1rem">Submit Application</h3>
+            <p style="color:#64748b;font-size:0.875rem;margin-top:0.25rem">
+              Select programme, level and payment method.
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1.25rem">
+          <div style="width:2.5rem;height:2.5rem;background:#2563eb;color:#fff;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">4</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.1rem">Complete Payment</h3>
+            <p style="color:#64748b;font-size:0.875rem;margin-top:0.25rem">
+              Use MTN MoMo, Airtel Money, Bank or Card.
+            </p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1.25rem">
+          <div style="width:2.5rem;height:2.5rem;background:#2563eb;color:#fff;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">5</div>
+          <div>
+            <h3 style="font-weight:700;font-size:1.1rem">Track Status</h3>
+            <p style="color:#64748b;font-size:0.875rem;margin-top:0.25rem">
+              View Pending → Under Review → Approved / Rejected.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:2.5rem;text-align:center">
+        <button onclick="showPage('register')" class="btn btn-primary">
+          Start Registration
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PAYMENTS PAGE ==================== -->
+  <div id="page-payments" class="page">
+    <div class="container" style="max-width:48rem;padding:3rem 0">
+      <h1 style="font-size:1.875rem;font-weight:700;margin-bottom:0.5rem">Payment Methods</h1>
+      <p style="color:#64748b;margin-bottom:2.5rem">Flexible and secure ways to pay</p>
+
+      <div style="display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">
+        <div class="card card-hover" style="padding:1.5rem">
+          <div class="feature-icon" style="background:#fef9c3;color:#ca8a04">📱</div>
+          <h3 style="font-weight:700">MTN Mobile Money</h3>
+          <p style="font-size:0.875rem;color:#64748b;margin-top:0.5rem">
+            Dial *182# or use MoMo App with the generated reference.
+          </p>
+        </div>
+
+        <div class="card card-hover" style="padding:1.5rem">
+          <div class="feature-icon" style="background:#fee2e2;color:#dc2626">📱</div>
+          <h3 style="font-weight:700">Airtel Money</h3>
+          <p style="font-size:0.875rem;color:#64748b;margin-top:0.5rem">
+            Use Airtel Money app or USSD with your unique reference.
+          </p>
+        </div>
+
+        <div class="card card-hover" style="padding:1.5rem">
+          <div class="feature-icon" style="background:#dbeafe;color:#2563eb">🏦</div>
+          <h3 style="font-weight:700">Bank Transfer</h3>
+          <p style="font-size:0.875rem;color:#64748b;margin-top:0.5rem">
+            Transfer to the school account and note the transaction ID.
+          </p>
+        </div>
+
+        <div class="card card-hover" style="padding:1.5rem">
+          <div class="feature-icon" style="background:#f3e8ff;color:#7c3aed">💳</div>
+          <h3 style="font-weight:700">Visa / Mastercard</h3>
+          <p style="font-size:0.875rem;color:#64748b;margin-top:0.5rem">
+            Card payments are recorded with a generated reference.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top:2rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:0.75rem;padding:1.25rem;font-size:0.875rem;color:#1e3a8a">
+        <strong>How payment works:</strong>
+        When you apply, you receive a unique payment reference.
+        After you pay, mark <em>I have paid</em>.
+        Only the <strong>Admin</strong> verifies and marks the payment as Paid.
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== REGISTER ==================== -->
+  <div id="page-register" class="page">
+    <div class="container" style="padding:3rem 0">
+      <div class="form-card">
+        <h1 style="font-size:1.5rem;font-weight:700;text-align:center;margin-bottom:0.25rem">
+          Create Account
+        </h1>
+        <p style="text-align:center;color:#64748b;font-size:0.875rem;margin-bottom:1.5rem">
+          Student / Visitor, or DEO (first public registration)
+        </p>
+
+        <form id="form-register" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input name="full_name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label>Phone</label>
+            <input name="phone" placeholder="+250 7XX XXX XXX">
+          </div>
+
+          <div class="form-group">
+            <label>Account Type *</label>
+            <select name="role" id="reg-role" onchange="onRegRoleChange(this.value)">
+              <option value="student">Student / Visitor</option>
+              <option value="director">School Director</option>
+              <option value="deo">Director Education Officer (DEO)</option>
+            </select>
+          </div>
+
+          <div id="reg-district" class="form-group" style="display:none">
+            <label>Your District (DEO)</label>
+            <input name="district" value="Gasabo">
+          </div>
+
+          <div id="reg-school" class="form-group" style="display:none">
+            <label>Your School *</label>
+            <select name="school_id" id="reg-school-select">
+              <option value="">— Select your school —</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Password *</label>
+            <input type="password" name="password" required minlength="6">
+          </div>
+
+          <div class="form-group">
+            <label>Confirm Password *</label>
+            <input type="password" name="confirm" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">Register</button>
+        </form>
+
+        <p style="text-align:center;font-size:0.875rem;color:#64748b;margin-top:1.25rem">
+          Already have an account?
+          <a href="#" onclick="showPage('login')" style="color:#2563eb;font-weight:500">Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== LOGIN ==================== -->
+  <div id="page-login" class="page">
+    <div class="container" style="padding:3rem 0">
+      <div class="form-card">
+        <h1 style="font-size:1.5rem;font-weight:700;text-align:center;margin-bottom:0.25rem">
+          Welcome Back
+        </h1>
+        <p style="text-align:center;color:#64748b;font-size:0.875rem;margin-bottom:1.5rem">
+          Login as Student, Admin or DEO
+        </p>
+
+        <form id="form-login" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">Login</button>
+        </form>
+
+        <p style="text-align:center;font-size:0.875rem;color:#64748b;margin-top:1.25rem">
+          No account?
+          <a href="#" onclick="showPage('register')" style="color:#2563eb;font-weight:500">Register here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== APPLY ==================== -->
+  <div id="page-apply" class="page">
+    <div class="container"
+         style="max-width:36rem;padding:2.5rem 0"
+         id="apply-content">
+    </div>
+  </div>
+
+  <!-- ==================== STUDENT DASHBOARD ==================== -->
+  <div id="page-student" class="page">
+    <div class="container" style="max-width:64rem;padding:2.5rem 0">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:2rem">
+        <div>
+          <h1 style="font-size:1.5rem;font-weight:700" id="stu-name">Hello</h1>
+          <p style="color:#64748b;font-size:0.875rem">Student / Visitor Dashboard</p>
+        </div>
+        <button onclick="showPage('schools')"
+                class="btn btn-primary"
+                style="font-size:0.875rem">
+          + Apply to a School
+        </button>
+      </div>
+
+      <div class="card" style="overflow:hidden">
+        <div style="padding:1rem 1.5rem;border-bottom:1px solid #e2e8f0;font-weight:600">
+          My Applications
+        </div>
+        <div id="stu-apps" class="table-wrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ADMIN DASHBOARD ==================== -->
+  <div id="page-admin" class="page">
+    <div class="container" style="max-width:72rem;padding:2.5rem 0">
+      <div style="margin-bottom:1.5rem">
+        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:#f3e8ff;color:#6b21a8;font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;border-radius:9999px;margin-bottom:0.5rem">
+          🛡 ADMIN ACCESS
+        </div>
+        <h1 style="font-size:1.5rem;font-weight:700">Admin Dashboard</h1>
+        <p style="color:#64748b;font-size:0.875rem">
+          Manage users, applications and view login emails
+        </p>
+      </div>
+
+      <div id="admin-stats"
+           style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2rem">
+      </div>
+
+      <div class="card" style="overflow:hidden;margin-bottom:2rem">
+        <div style="padding:1rem 1.5rem;border-bottom:1px solid #e2e8f0;font-weight:600;display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.75rem">
+          <span>✉ Registered Users & Emails</span>
+          <span style="font-size:0.75rem;color:#64748b;font-weight:400" id="admin-user-count"></span>
+        </div>
+        <div id="admin-users" class="table-wrap"></div>
+      </div>
+
+      <div class="card" style="overflow:hidden;margin-bottom:2rem">
+        <div style="padding:1rem 1.5rem;border-bottom:1px solid #e2e8f0;font-weight:600">
+          🕐 Recent Login Activity
+        </div>
+        <div id="admin-logins" class="table-wrap"></div>
+      </div>
+
+      <div class="card" style="overflow:hidden">
+        <div style="padding:1rem 1.5rem;border-bottom:1px solid #e2e8f0;font-weight:600">
+          All Applications
+        </div>
+        <div id="admin-apps" class="table-wrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DEO DASHBOARD ==================== -->
+  <div id="page-deo" class="page">
+    <div class="container" style="max-width:72rem;padding:2.5rem 0">
+      <div style="display:inline-flex;align-items:center;gap:0.5rem;background:#ccfbf1;color:#115e59;font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;border-radius:9999px;margin-bottom:0.5rem">
+        🏛 DIRECTOR EDUCATION OFFICER (DEO)
+      </div>
+      <h1 style="font-size:1.5rem;font-weight:700" id="deo-title">DEO Dashboard</h1>
+      <p style="color:#64748b;font-size:0.875rem;margin-bottom:2rem">
+        Oversight of all private secondary schools and student applications
+      </p>
+
+      <div id="deo-stats"
+           style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:2rem">
+      </div>
+
+      <div class="card" style="margin-bottom:2rem;overflow:hidden">
+        <div style="padding:1rem 1.5rem;border-bottom:1px solid #e2e8f0;font-weight:600"
+             id="deo-schools-title">
+          All private schools on PSDMS
+        </div>
+        <ul id="deo-schools" style="list-style:none"></ul>
+      </div>
+
+      <div class="card" style="overflow:hidden">
+        <div style="padding:1rem 1.5rem;border-bottom:1px solid #e2e8f0;font-weight:600">
+          Applications
+        </div>
+        <div id="deo-apps" class="table-wrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCHOOL DIRECTOR DASHBOARD ==================== -->
+  <div id="page-director" class="page">
+    <div class="container" style="max-width:72rem;padding:2.5rem 0">
+      <div style="display:inline-flex;align-items:center;gap:0.5rem;background:#e0e7ff;color:#3730a3;font-size:0.75rem;font-weight:600;padding:0.25rem 0.75rem;border-radius:9999px;margin-bottom:0.5rem">
+        👔 SCHOOL DIRECTOR
+      </div>
+      <h1 style="font-size:1.5rem;font-weight:700" id="dir-title">
+        School Director Dashboard
+      </h1>
+      <p style="color:#64748b;font-size:0.875rem;margin-bottom:2rem"
+         id="dir-school-name">
+        Applications for your school
+      </p>
+
+      <div id="dir-stats"
+           style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:2rem">
+      </div>
+
+      <div class="card" style="overflow:hidden">
+        <div style="padding:1rem 1.5rem;border-bottom:1px solid #e2e8f0;font-weight:600">
+          Student applications & payments
+        </div>
+        <div id="dir-apps" class="table-wrap"></div>
+      </div>
+
+      <p style="font-size:0.75rem;color:#64748b;margin-top:1rem">
+        Only you (School Director) can approve or reject applications for your school.
+      </p>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <h3 style="display:flex;align-items:center;gap:0.5rem">🎓 PSDMS</h3>
+      <p>
+        PSDMS is the Private School Directory & Management System for Rwanda.
+        Data drawn from NESA accredited lists and MINEDUC statistics
+        (2024/25: 172 private secondary schools).
+      </p>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <ul style="list-style:none">
+        <li>
+          <a href="#" onclick="showPage('register')">Register</a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Access</h4>
+      <p>Register as Student or DEO. Admin access is restricted.</p>
+      <p style="margin-top:0.5rem">
+        Your account data is stored securely in this browser.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2024-2025 PSDMS – Private School Directory & Management System • NESA Accredited Lists
+  </div>
+</footer>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+/* ===================== SCHOOLS DATA ===================== */
+const SCHOOLS = [
+  {id:1, name:"SOS TSS (SOS Technical High School)", district:"Gasabo", boarding:"Boarding and Day", type:"TSS",
+   trades:"Software Development L3-5; Networking and Internet Technology L3-5; Electronics and Telecommunication",
+   contacts:"Tel: +250 788 816 940 | Email: tc2@sos-rwanda.org | Address: Gacuriro, KG 14 Ave, 337 St, Kigali | Web: soshgths.rw"},
+  {id:2, name:"KETHA / Kigali Excellent Tourism and Hospitality Academy", district:"Gasabo", boarding:"Day", type:"TSS",
+   trades:"Culinary Arts L1; Food and Beverage Operations L4-5; Tourism L4-5",
+   contacts:"Tel: 0780 376 188 / 0782 468 433 / 0783 017 180 | Email: excellenttourismrwanda@gmail.com | Kicukiro, Niboye"},
+  {id:3, name:"WORLD MISSION TSS", district:"Gasabo", boarding:"Day", type:"TSS",
+   trades:"Multimedia Production L3-5; Software Development L3-5; Networking and Internet Technology L3-5",
+   contacts:"Tel: 0782 848 21 | Email: worldmission779@gmail.com"},
+  {id:4, name:"APAER RUSORORO", district:"Gasabo", boarding:"Boarding and Day", type:"TSS",
+   trades:"Tourism L3-5; Software Development L3-5; Electronics",
+   contacts:"Verify via NESA / Gasabo District Education Office"},
+  {id:5, name:"GLORY ACADEMY", district:"Gasabo", boarding:"Day", type:"TSS / General",
+   trades:"Tourism L3-5; Food and Beverage Operations L3-5; Software Development L3-5; Building Construction L3-5; O'Level & A'Level",
+   contacts:"Tel: +250 788 316 534 / +250 783 608 989 | Email: principal@gloryacademy.ac.rw | 102 KG 14 Ave, Kigali"},
+  {id:6, name:"ESAPAG", district:"Ruhango", boarding:"Boarding", type:"TSS",
+   trades:"Computer System and Architecture L3-5; Software Development L3-5",
+   contacts:"Verify via NESA / Ruhango District"},
+  {id:7, name:"LYCEE DE LA SAINTE TRINITE-APED TSS", district:"Bugesera", boarding:"Mixed", type:"TSS",
+   trades:"Building construction L3-5; Electrical technology L3-5",
+   contacts:"Verify via NESA / Bugesera District"},
+  {id:8, name:"BUREHE TSS", district:"Rulindo", boarding:"Mixed", type:"TSS",
+   trades:"Food And Beverage Operations L3-5; Culinary Arts L1; Fashion Design L3-5; Tailoring L1",
+   contacts:"Verify via NESA / Rulindo District"},
+  {id:9, name:"College Baptiste de Ngarama (COBANGA)", district:"Gatsibo", boarding:"Boarding", type:"TSS / General",
+   trades:"Tourism L3-5; Software Development L3-5; O'Level & A'Level",
+   contacts:"Verify via NESA / Gatsibo District"},
+  {id:10, name:"BENEBIKIRA TSS", district:"Gatsibo", boarding:"Boarding", type:"TSS",
+   trades:"Building Construction L3-5; Food & Beverage Operations L3-5; Wood Technology L3-5; Fashion Design L3-5",
+   contacts:"Verify via NESA / Gatsibo District"},
+  {id:11, name:"DON BOSCO RANGO TSS", district:"Huye", boarding:"Day and Boarding", type:"TSS",
+   trades:"Tailoring L1; Hairdressing L1; Carpentry L1; Welding L1; Culinary Arts L1; Building Construction L3-5",
+   contacts:"Don Bosco network: +250 780 403 938 | Email: donboscojso@gmail.com | Tumba Sector, Huye"},
+  {id:12, name:"G S des Parents TSS", district:"Huye", boarding:"Boarding", type:"TSS",
+   trades:"Computer System & Architecture L3-5; Electronics and Telecommunication L3-5; Software Development L3-5",
+   contacts:"Verify via NESA / Huye District"},
+  {id:13, name:"KAYONZA TSS", district:"Kayonza", boarding:"Mixed", type:"TSS",
+   trades:"Culinary arts L1; Food and Beverage Operations L3-5",
+   contacts:"Verify via NESA / Kayonza District"},
+  {id:14, name:"AMIZERO INSTITUTE OF TECHNOLOGY & HOSPITALITY", district:"Kayonza", boarding:"Mixed", type:"TSS",
+   trades:"Culinary Arts L1; Hairdressing L1; Food & Beverage operations L3-5",
+   contacts:"Verify via NESA / Kayonza District"},
+  {id:15, name:"ST. EMMANUEL COMPLEX SCHOOL MASAKA TSS", district:"Kicukiro", boarding:"Day", type:"TSS",
+   trades:"Computer System and Architecture L3-5; Software Development L3-5; Building Construction L3-5; Electronics and Telecommunication L3-5",
+   contacts:"Verify via NESA / Kicukiro District"},
+  {id:16, name:"ESSA NYARUGUNGA", district:"Kicukiro", boarding:"Boarding", type:"TSS",
+   trades:"Software Development L3-5; Food and Beverage Operations L3-5; Building Construction L3-5; Computer System and Architecture L3-5; Tourism L3-5",
+   contacts:"Tel: 0788 303 811 | Manager: GATARI Sylvere | Nyarugunga Sector, Kicukiro"},
+  {id:17, name:"KIREHE ADVENTISTS TSS", district:"Kirehe", boarding:"Boarding and day", type:"TSS",
+   trades:"Building construction L3-5; Software Development L3-5; Tourism L3-5; Multimedia production L3-5",
+   contacts:"Verify via NESA / Kirehe District or Rwanda Union Mission"},
+  {id:18, name:"AKAGERA INTERNATIONAL SCHOOL", district:"Kirehe", boarding:"Boarding", type:"TSS / General",
+   trades:"Computer system and architecture L3-5; Building Construction L3-5; Electronics and telecommunication L3-5; Tourism L3-5; Food and beverage operations L3-5; Primary & O'Level",
+   contacts:"Tel: +250 783 572 702 / +250 786 112 192 | Email: akageraschool@gmail.com | Gatore Sector | Web: ais.ac.rw"},
+  {id:19, name:"SAINT SYLVAN TSS", district:"Muhanga", boarding:"Boarding", type:"TSS",
+   trades:"Land surveying L3-5; Building construction L3-5; Electrical Technology L3-5; Renewable Energy L3-5",
+   contacts:"Verify via NESA / Muhanga District"},
+  {id:20, name:"ACODES TSS", district:"Muhanga", boarding:"Boarding", type:"TSS",
+   trades:"Software Development L3-5; Networking and Internet Technologies L3-5",
+   contacts:"Verify via NESA / Muhanga District"},
+  {id:21, name:"Garden TSS", district:"Ngoma", boarding:"Mixed", type:"TSS",
+   trades:"Building construction L3-5; Automobile technology L3-5; Software development L3-5",
+   contacts:"Verify via NESA / Ngoma District"},
+  {id:22, name:"Colege Mont Simon APADEM", district:"Nyanza", boarding:"Boarding", type:"TSS",
+   trades:"Software Development L3-L5; Building Construction L3-L5; Electronic and Telecommunication L3-L5",
+   contacts:"Verify via NESA / Nyanza District"},
+  {id:23, name:"RIVIERA HIGH SCHOOL", district:"Gasabo", boarding:"Boarding", type:"General Secondary",
+   trades:"Cambridge International; BTEC Business; REB O'Level & A'Level (PCM, PCB, HLP, HGL, etc.)",
+   contacts:"Tel: +250 788 305 655 | Kabuga, Rusororo, Kigali | P.O. Box 868"},
+  {id:24, name:"GIHOGWE SECONDARY SCHOOL", district:"Gasabo", boarding:"Boarding", type:"General Secondary",
+   trades:"MCE, MEG, HGL (A'Level combinations)",
+   contacts:"Jali Sector, Gasabo | Private Secondary Only"},
+  {id:25, name:"IFAK", district:"Gasabo", boarding:"Mixed", type:"General Secondary",
+   trades:"PCM, MCB, MCE, MPC, PCB, MEG",
+   contacts:"Kimihurura, Gasabo | Private Secondary Only"},
+  {id:26, name:"SAINT IGNATIUS HIGH SCHOOL", district:"Gasabo", boarding:"Day", type:"General Secondary",
+   trades:"O'Level; MPC, MCB, MCE, PCB",
+   contacts:"Kimironko, Gasabo"},
+  {id:27, name:"KIGALI CHRISTIAN SCHOOL", district:"Gasabo", boarding:"Day and Boarding", type:"General Secondary",
+   trades:"Pre-primary to A'Level: HGL, HLP, MCB, MCE, MPC, MPG, PCB",
+   contacts:"Kimironko, Gasabo"},
+  {id:28, name:"HOPE HAVEN CHRISTIAN SCHOOL", district:"Gasabo", boarding:"Boarding", type:"General Secondary",
+   trades:"Pre-Primary, Primary, O'Level, MCB, MCE, MPG, MPC, PCB, HGL",
+   contacts:"Ndera, Gasabo | Strong national exam performance"},
+  {id:29, name:"PETIT SEMINAIRE SAINT VINCENT NDERA", district:"Gasabo", boarding:"Boarding", type:"General Secondary",
+   trades:"O'Level, MCB, PCM",
+   contacts:"Ndera, Gasabo"},
+  {id:30, name:"COLLEGE DOCTRINA VITAE", district:"Gasabo", boarding:"Boarding/mixed", type:"General / TVET",
+   trades:"Primary, O'Level Accounting",
+   contacts:"Ndera, Gasabo"},
+  {id:31, name:"GS APRED NDERA", district:"Gasabo", boarding:"Boarding/mixed", type:"General Secondary",
+   trades:"O'Level: MCB, PCB, PCM, MEG, HGL, MPC, MCE, MPG",
+   contacts:"Ndera, Gasabo"},
+  {id:32, name:"ECOLE INTERNATIONALE LA RACINE", district:"Bugesera", boarding:"Day / Boarding", type:"General Secondary",
+   trades:"Pre-primary through Secondary",
+   contacts:"Bugesera District | Strong national exam results"},
+  {id:33, name:"WISDOM SCHOOL", district:"Musanze", boarding:"Day", type:"General Secondary",
+   trades:"Pre-primary to Secondary",
+   contacts:"Musanze | Top PLE performer 2024/25"},
+  {id:34, name:"EFOTEC / Ecole Secondaire Kanombe", district:"Kicukiro", boarding:"Day", type:"General Secondary",
+   trades:"Science-based secondary curriculum; O'Level & A'Level",
+   contacts:"Kanombe, Kicukiro | Top O'Level performer 2024/25"},
+  {id:35, name:"College Apacope", district:"Kigali", boarding:"Day", type:"General Secondary",
+   trades:"Secondary education",
+   contacts:"Tel: (250) 252 57 23 87 | Bp. 1198, Kigali"},
+  {id:36, name:"Ecole Apace Mont Kigali", district:"Kigali", boarding:"Day", type:"General Secondary",
+   trades:"Innovative learning programmes",
+   contacts:"Tel: (250) 252 57 71 06 | Bp. 1046, Kigali"},
+  {id:37, name:"ECOLE SAINT JOSEPH", district:"Kicukiro", boarding:"Day", type:"General Secondary",
+   trades:"Christian values secondary education",
+   contacts:"Tel: +250 252 588183 | Kicukiro, P.O.Box 1191"},
+  {id:38, name:"WELLSPRING ACADEMY", district:"Kigali", boarding:"Day", type:"International / General",
+   trades:"Cambridge International (ages 3–18)",
+   contacts:"Kigali | Cambridge curriculum"},
+  {id:39, name:"KING DAVID ACADEMY", district:"Kigali", boarding:"Day", type:"International / General",
+   trades:"Cambridge / International programmes",
+   contacts:"Kigali"},
+  {id:40, name:"INTERNATIONAL SCHOOL OF KIGALI", district:"Gasabo", boarding:"Day", type:"International",
+   trades:"International curriculum (English & French streams)",
+   contacts:"Kimihurura, Gasabo"},
+  {id:41, name:"GABIRO HIGH SCHOOL", district:"Gatsibo", boarding:"Boarding", type:"General Secondary",
+   trades:"O'Level & A'Level: PCB, MEG, HGL",
+   contacts:"Gatsibo District"},
+  {id:42, name:"COLLEGE ADVENTISTE DE GAKONI", district:"Gatsibo", boarding:"Mixed", type:"General Secondary",
+   trades:"O'Level & A'Level: MEG",
+   contacts:"Gatsibo District"},
+  {id:43, name:"NYAKAYAGA SECONDARY SCHOOL", district:"Gatsibo", boarding:"Mixed", type:"General Secondary",
+   trades:"O'Level & A'Level",
+   contacts:"Gatsibo District"},
+  {id:44, name:"PETIT SEMINAIRE ST DOMINIQUE DE RWESERO", district:"Gicumbi", boarding:"Boarding", type:"General Secondary",
+   trades:"O'Level; MPG, PCM, LFK, MCB, PCB",
+   contacts:"Bukure, Gicumbi"},
+  {id:45, name:"RWAMAGANA LEADERS' SCHOOL", district:"Rwamagana", boarding:"Mixed", type:"General Secondary",
+   trades:"Ordinary level; MEG, MPC, MCE, HEG, MPG",
+   contacts:"Kigabiro, Rwamagana"},
+  {id:46, name:"INSTITUTE OF WOMEN FOR EXCELLENCE (IWE)", district:"Rwamagana", boarding:"Day", type:"General Secondary",
+   trades:"Ordinary level; PCM, MEG",
+   contacts:"Kigabiro, Rwamagana"},
+  {id:47, name:"KARENGE ADVENTIST SECONDARY SCHOOL TSS", district:"Rwamagana", boarding:"Boarding", type:"TSS",
+   trades:"Building construction L3-5; Networking and Internet technology L3-5; Computer system and Architecture L3-5; Electronics and Telecommunication L3-5",
+   contacts:"Rwamagana District"},
+  {id:48, name:"LYCEE ISLAMIC RWAMAGANA", district:"Rwamagana", boarding:"Mixed", type:"TSS",
+   trades:"TVET programmes",
+   contacts:"Rwamagana District"},
+  {id:49, name:"COLLEGE FONDATION SINA GERARD", district:"Rulindo", boarding:"Boarding", type:"TSS",
+   trades:"Automobile Technology L3-5; Hair Dressing L1; Animal Health L3-5; Agriculture L3-5; Food Processing L3-5; Building Construction L3-5",
+   contacts:"Rulindo District"},
+  {id:50, name:"APAPEGI CYURU TSS", district:"Gicumbi", boarding:"Mixed", type:"TSS",
+   trades:"Building Construction L3-5; O'Level Accounting",
+   contacts:"Rukomo / Byumba area, Gicumbi"}
+];
+
+/* ===================== ENRICH SCHOOLS ===================== */
+(function enrichSchools() {
+  const defaults = {
+    conditions: [
+      "Completed required prior education level for the programme",
+      "Good conduct from previous school",
+      "Parent/guardian support and acceptance of school rules"
+    ],
+    documents: [
+      "Filled application form",
+      "National ID or birth certificate (copy)",
+      "Two passport-size photos",
+      "Previous school report / leaving certificate",
+      "PLE or O'Level results slip (as applicable)"
+    ],
+    marks: "Pass in PLE for O'Level/TVET entry; relevant O'Level passes for A'Level or advanced TVET levels.",
+    application_fee: 25000,
+    term_fees: 150000
+  };
+
+  SCHOOLS.forEach(s => {
+    if (s.requirements) return;
+
+    const n = (s.name || '').toUpperCase();
+    const t = (s.type || '').toUpperCase();
+
+    let conditions = defaults.conditions.slice();
+    let documents = defaults.documents.slice();
+    let marks = defaults.marks;
+    let application_fee = 25000;
+    let term_fees = 150000;
+
+    if (t.includes('TSS') || n.includes('TSS') || n.includes('TVET') ||
+        n.includes('HOSPITALITY') || n.includes('KETHA')) {
+      conditions = [
+        "Completed Primary 6 (for L1) or O'Level foundation for L3–L5 programmes",
+        "Willingness to follow practical workshop and safety rules",
+        "Medical fitness for practical trades where required",
+        "Interview or skills orientation may be required"
+      ];
+      documents = documents.concat([
+        "Parent/guardian consent letter (if under 18)",
+        "Medical certificate (for practical trades, if requested by school)"
+      ]);
+      marks = "Minimum: Pass in PLE. For L3–L5: O'Level passes preferred (Mathematics and related subjects an advantage).";
+      application_fee = 25000;
+      term_fees = 120000;
+    }
+    else if (t.includes('INTERNATIONAL') || n.includes('RIVIERA') ||
+             n.includes('WELLSPRING') || n.includes('KING DAVID') ||
+             n.includes('INTERNATIONAL SCHOOL')) {
+      conditions = [
+        "Age-appropriate placement assessment",
+        "Two years of previous school reports",
+        "Adequate English (or French) for the curriculum stream"
+      ];
+      documents = [
+        "Application form",
+        "Birth certificate / passport copy",
+        "Previous academic transcripts (2 years)",
+        "Immunization / health record",
+        "Passport photos"
+      ];
+      marks = "Entrance assessment. Previous average of about 60% or above recommended.";
+      application_fee = 50000;
+      term_fees = 450000;
+    }
+    else if (n.includes('ADVENTIST') || n.includes('CHRISTIAN') ||
+             n.includes('SEMMAIRE') || n.includes('SEMINAIRE')) {
+      conditions = [
+        "Commitment to school Christian values and code of conduct",
+        "Completed prior level (P6 or O'Level as applicable)",
+        "Recommendation from church or previous school preferred"
+      ];
+      documents = documents.concat([
+        "Baptism or church recommendation letter (if requested)"
+      ]);
+      marks = "PLE pass for O'Level; O'Level passes for A'Level combinations.";
+      application_fee = 30000;
+      term_fees = 160000;
+    }
+    else {
+      application_fee = 30000;
+      term_fees = 180000;
+    }
+
+    if (s.boarding && s.boarding.toLowerCase().includes('board')) {
+      term_fees = Math.round(term_fees * 1.35);
+      documents = documents.concat(["Boarding agreement form (after acceptance)"]);
+    }
+
+    s.requirements = { conditions, documents, marks, application_fee, term_fees };
+  });
+})();
+
+/* ===================== STORAGE ===================== */
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem('tss_users') || '[]'); }
+  catch (e) { return []; }
+}
+
+function saveUsers(u) {
+  try { localStorage.setItem('tss_users', JSON.stringify(u)); }
+  catch (e) { flash('Cannot save data.', 'danger'); }
+}
+
+function getApps() {
+  try { return JSON.parse(localStorage.getItem('tss_apps') || '[]'); }
+  catch (e) { return []; }
+}
+
+function saveApps(a) {
+  try { localStorage.setItem('tss_apps', JSON.stringify(a)); }
+  catch (e) {}
+}
+
+function getCurrent() {
+  return JSON.parse(localStorage.getItem('tss_current') || 'null');
+}
+
+function setCurrent(u) {
+  localStorage.setItem('tss_current', JSON.stringify(u));
+}
+
+function getLoginLog() {
+  try { return JSON.parse(localStorage.getItem('tss_login_log') || '[]'); }
+  catch (e) { return []; }
+}
+
+function addLoginLog(user) {
+  try {
+    const log = getLoginLog();
+    log.unshift({
+      email: user.email,
+      name: user.full_name,
+      role: user.role,
+      time: new Date().toISOString()
+    });
+    localStorage.setItem('tss_login_log', JSON.stringify(log.slice(0, 100)));
+  } catch (e) {}
+}
+
+function seedDemo() {
+  const VERSION = 'psdms-notify-v5';
+  if (localStorage.getItem('tss_data_version') === VERSION) return;
+
+  try {
+    localStorage.removeItem('tss_apps');
+    localStorage.removeItem('tss_login_log');
+    localStorage.removeItem('tss_current');
+    localStorage.removeItem('tss_users');
+    localStorage.removeItem('tss_notifications');
+  } catch (e) {}
+
+  saveUsers([{
+    id: 1,
+    full_name: 'System Administrator',
+    email: 'admin@gmail.com',
+    phone: '',
+    password: 'admin123@!',
+    role: 'admin',
+    district: 'National'
+  }]);
+
+  localStorage.setItem('tss_data_version', VERSION);
+}
+seedDemo();
+
+/* ===================== NOTIFICATIONS ===================== */
+function getNotifications() {
+  try { return JSON.parse(localStorage.getItem('tss_notifications') || '[]'); }
+  catch (e) { return []; }
+}
+
+function saveNotifications(list) {
+  try { localStorage.setItem('tss_notifications', JSON.stringify(list.slice(0, 200))); }
+  catch (e) {}
+}
+
+function notifyUser(email, title, message, type) {
+  if (!email) return;
+  const list = getNotifications();
+  list.unshift({
+    id: Date.now() + Math.random(),
+    email: (email || '').toLowerCase(),
+    title: title || 'Update',
+    message: message || '',
+    type: type || 'info',
+    read: false,
+    time: new Date().toISOString()
+  });
+  saveNotifications(list);
+}
+
+function notifyRole(role, title, message, type) {
+  getUsers().filter(u => u.role === role)
+            .forEach(u => notifyUser(u.email, title, message, type));
+}
+
+function getMyNotifications() {
+  const user = getCurrent();
+  if (!user) return [];
+  return getNotifications().filter(n => n.email === (user.email || '').toLowerCase());
+}
+
+function unreadCount() {
+  return getMyNotifications().filter(n => !n.read).length;
+}
+
+function markNotifRead(id) {
+  const list = getNotifications();
+  const n = list.find(x => x.id === id);
+  if (n) {
+    n.read = true;
+    saveNotifications(list);
+  }
+  renderNotifBell();
+  renderNotifPanel();
+}
+
+function markAllNotifsRead() {
+  const user = getCurrent();
+  if (!user) return;
+  const list = getNotifications();
+  list.forEach(n => {
+    if (n.email === (user.email || '').toLowerCase()) n.read = true;
+  });
+  saveNotifications(list);
+  renderNotifBell();
+  renderNotifPanel();
+}
+
+function renderNotifBell() {
+  const user = getCurrent();
+  const c = user ? unreadCount() : 0;
+
+  ['notif-badge', 'notif-badge-mobile'].forEach(id => {
+    const badge = document.getElementById(id);
+    if (!badge) return;
+    if (!user || c <= 0) {
+      badge.style.display = 'none';
+      return;
+    }
+    badge.textContent = c > 9 ? '9+' : String(c);
+    badge.style.display = 'flex';
+  });
+}
+
+function toggleNotifPanel() {
+  const panel = document.getElementById('notif-panel');
+  if (!panel) return;
+  panel.classList.toggle('show');
+  if (panel.classList.contains('show')) renderNotifPanel();
+}
+
+function renderNotifPanel() {
+  const body = document.getElementById('notif-list');
+  if (!body) return;
+
+  const items = getMyNotifications().slice(0, 30);
+
+  if (!items.length) {
+    body.innerHTML = '<div style="padding:1.5rem;text-align:center;color:#94a3b8;font-size:0.875rem">No notifications yet.</div>';
+    return;
+  }
+
+  body.innerHTML = items.map(n => `
+    <button type="button"
+            onclick="markNotifRead(${JSON.stringify(n.id)})"
+            style="width:100%;text-align:left;padding:0.75rem 1rem;border:none;border-bottom:1px solid #f1f5f9;background:${n.read ? '#fff' : '#f8fafc'};cursor:pointer">
+      <div style="font-size:0.875rem;font-weight:600">${n.title}</div>
+      <div style="font-size:0.75rem;color:#64748b;margin-top:0.25rem">${n.message}</div>
+      <div style="font-size:10px;color:#94a3b8;margin-top:0.25rem">${new Date(n.time).toLocaleString()}</div>
+    </button>
+  `).join('');
+}
+
+/* ===================== UI HELPERS ===================== */
+function flash(msg, type = 'info') {
+  const el = document.getElementById('flash');
+  if (!el) {
+    alert(msg);
+    return;
+  }
+  el.className = 'flash show flash-' + type;
+  el.innerHTML = `<span>${msg}</span>`;
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  clearTimeout(window._flashTimer);
+  window._flashTimer = setTimeout(() => el.classList.remove('show'), 5000);
+}
+
+function toggleMobile() {
+  document.getElementById('mobile-menu').style.display = 'none';
+}
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + name);
+  if (page) page.classList.add('active');
+  window.scrollTo(0, 0);
+
+  if (name === 'home') renderHomeSchools();
+  if (name === 'schools') renderSchools();
+  if (name === 'student') renderStudent();
+  if (name === 'admin') renderAdmin();
+  if (name === 'deo') renderDeo();
+  if (name === 'director') renderDirector();
+
+  updateAuthUI();
+}
+
+function updateAuthUI() {
+  const user = getCurrent();
+  const area = document.getElementById('auth-area');
+  const mob = document.getElementById('mobile-auth');
+
+  if (user) {
+    const dash = user.role === 'admin' ? 'admin'
+               : user.role === 'deo' ? 'deo'
+               : user.role === 'director' ? 'director'
+               : 'student';
+
+    area.innerHTML = `
+      <a href="#" onclick="showPage('${dash}')">Dashboard</a>
+      <span style="color:#64748b;font-size:0.75rem">${user.full_name.split(' ')[0]} (${user.role})</span>
+      <a href="#" onclick="logout()" style="color:#dc2626">Logout</a>
+    `;
+
+    mob.innerHTML = `
+      <a href="#" onclick="showPage('${dash}');toggleMobile()">Dashboard</a>
+      <a href="#" onclick="logout();toggleMobile()" style="color:#dc2626">Logout</a>
+    `;
+  } else {
+    area.innerHTML = `
+      <a href="#" onclick="showPage('login')">Login</a>
+      <a href="#" onclick="showPage('register')" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.875rem">Register</a>
+    `;
+
+    mob.innerHTML = `
+      <a href="#" onclick="showPage('login');toggleMobile()">Login</a>
+      <a href="#" onclick="showPage('register');toggleMobile()" style="font-weight:600;color:#2563eb">Register</a>
+    `;
+  }
+
+  renderNotifBell();
+}
+
+/* ===================== SCHOOLS RENDERING ===================== */
+function renderHomeSchools() {
+  const el = document.getElementById('home-schools');
+  if (!el) return;
+
+  el.innerHTML = SCHOOLS.slice(0, 6).map(s => `
+    <div class="card card-hover" style="padding:1rem">
+      <div style="font-size:0.75rem;color:#2563eb;font-weight:600;text-transform:uppercase">${s.district}</div>
+      <h3 style="font-weight:700;font-size:0.875rem;margin-top:0.25rem">${s.name}</h3>
+      <p style="font-size:0.75rem;color:#64748b;margin-top:0.5rem">${s.boarding} • ${s.type || 'Private'}</p>
+      <button onclick="showDetail(${s.id})"
+              style="margin-top:0.75rem;background:none;border:none;color:#2563eb;font-size:0.75rem;font-weight:600;cursor:pointer">
+        Details
+      </button>
+    </div>
+  `).join('');
+}
+
+function renderSchools() {
+  const q = (document.getElementById('search-q')?.value || '').toLowerCase();
+  const dist = document.getElementById('filter-district')?.value || '';
+
+  const sel = document.getElementById('filter-district');
+  if (sel && sel.options.length <= 1) {
+    [...new Set(SCHOOLS.map(s => s.district))].sort().forEach(d => {
+      const o = document.createElement('option');
+      o.value = d;
+      o.textContent = d;
+      sel.appendChild(o);
+    });
+  }
+
+  const list = SCHOOLS.filter(s => {
+    const matchQ = !q || s.name.toLowerCase().includes(q) || s.trades.toLowerCase().includes(q);
+    const matchD = !dist || s.district === dist;
+    return matchQ && matchD;
+  });
+
+  const grid = document.getElementById('schools-grid');
+
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:4rem;color:#64748b">No schools found.</div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(s => `
+    <div class="card card-hover school-card">
+      <div class="school-card-head">
+        <div style="font-size:0.75rem;opacity:0.8;text-transform:uppercase">${s.district}</div>
+        <h3 style="font-weight:700;font-size:1.1rem;margin-top:0.25rem">${s.name}</h3>
+      </div>
+      <div class="school-card-body">
+        <div style="font-size:0.875rem;color:#64748b;margin-bottom:0.75rem">🛏 ${s.boarding}</div>
+        <p style="font-size:0.875rem;flex:1;margin-bottom:1rem">
+          ${s.trades.slice(0, 130)}${s.trades.length > 130 ? '…' : ''}
+        </p>
+        <button onclick="showDetail(${s.id})"
+                class="btn"
+                style="width:100%;background:#eff6ff;color:#1d4ed8;font-size:0.875rem">
+          View Details & Apply →
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ===================== DETAIL + APPLY ===================== */
+function showDetail(id) {
+  const s = SCHOOLS.find(x => x.id === id);
+  if (!s) return;
+
+  const trades = s.trades.split(';').map(t => t.trim()).filter(Boolean);
+  const user = getCurrent();
+  const req = s.requirements || {
+    conditions: [], documents: [], marks: '',
+    application_fee: 25000, term_fees: 150000
+  };
+
+  const feesBlock = user ? `
+    <div style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:0.75rem;padding:1rem">
+      <h2 style="font-weight:700;margin-bottom:0.5rem">💰 School Fees (visible after login)</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;font-size:0.875rem">
+        <div>
+          <span style="color:#64748b">Application fee</span>
+          <div style="font-weight:700;font-size:1.1rem">${req.application_fee.toLocaleString()} RWF</div>
+        </div>
+        <div>
+          <span style="color:#64748b">Estimated term fees</span>
+          <div style="font-weight:700;font-size:1.1rem">${req.term_fees.toLocaleString()} RWF</div>
+        </div>
+      </div>
+      <p style="font-size:0.75rem;color:#64748b;margin-top:0.5rem">
+        Final fees may vary. Confirm with the school after acceptance.
+      </p>
+    </div>
+  ` : `
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:0.75rem;padding:1rem;font-size:0.875rem;color:#64748b">
+      🔒 <strong>Login or register</strong> to view school fees and to apply.
+    </div>
+  `;
+
+  document.getElementById('detail-content').innerHTML = `
+    <a href="#" onclick="showPage('schools')"
+       style="font-size:0.875rem;color:#2563eb;display:inline-block;margin-bottom:1rem">
+      ← Back to schools
+    </a>
+
+    <div class="card" style="overflow:hidden">
+      <div class="gradient-bg" style="color:#fff;padding:2rem 1.5rem">
+        <div style="font-size:0.875rem;opacity:0.8;text-transform:uppercase">${s.district} District</div>
+        <h1 style="font-size:1.75rem;font-weight:700;margin-top:0.25rem">${s.name}</h1>
+        <div style="margin-top:0.75rem;display:flex;flex-wrap:wrap;gap:0.75rem;font-size:0.875rem">
+          <span style="background:rgba(255,255,255,0.2);padding:0.25rem 0.75rem;border-radius:9999px">
+            🛏 ${s.boarding}
+          </span>
+          <span style="background:rgba(255,255,255,0.2);padding:0.25rem 0.75rem;border-radius:9999px">
+            ${s.type || 'Private'}
+          </span>
+        </div>
+      </div>
+
+      <div style="padding:1.5rem;display:flex;flex-direction:column;gap:1.5rem">
+        <div>
+          <h2 style="font-weight:700;margin-bottom:0.5rem">🛠 Accredited Trades / Programmes</h2>
+          <ul style="padding-left:1.25rem;font-size:0.875rem">
+            ${trades.map(t => `<li>${t}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div>
+          <h2 style="font-weight:700;margin-bottom:0.5rem">✅ Admission Conditions</h2>
+          <ul style="padding-left:1.25rem;font-size:0.875rem">
+            ${(req.conditions || []).map(c => `<li>${c}</li>`).join('') || '<li>Contact school</li>'}
+          </ul>
+        </div>
+
+        <div>
+          <h2 style="font-weight:700;margin-bottom:0.5rem">📄 Documents Required</h2>
+          <ul style="padding-left:1.25rem;font-size:0.875rem">
+            ${(req.documents || []).map(c => `<li>${c}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div>
+          <h2 style="font-weight:700;margin-bottom:0.5rem">📊 Marks / Academic Requirements</h2>
+          <p style="font-size:0.875rem">${req.marks || 'See school for details.'}</p>
+        </div>
+
+        ${feesBlock}
+
+        <div>
+          <h2 style="font-weight:700;margin-bottom:0.5rem">📞 Contact Details</h2>
+          <div style="background:#f8fafc;border-radius:0.75rem;padding:1rem;font-size:0.875rem">
+            ${s.contacts}
+          </div>
+        </div>
+
+        <div style="padding-top:1rem;border-top:1px solid #e2e8f0;display:flex;flex-wrap:wrap;gap:0.75rem">
+          ${user && user.role === 'student'
+            ? `<button onclick="showApply(${s.id})" class="btn btn-primary">Apply Now</button>`
+            : user
+              ? `<span style="font-size:0.875rem;color:#64748b">Logged in as ${user.role}. Students apply from their account.</span>`
+              : `<button onclick="showPage('login')" class="btn btn-primary">Login to Apply</button>
+                 <button onclick="showPage('register')" class="btn btn-outline">Register</button>`
+          }
+        </div>
+      </div>
+    </div>
+  `;
+
+  showPage('detail');
+}
+
+function showApply(id) {
+  const user = getCurrent();
+  if (!user) {
+    flash('Please login or register before applying.', 'danger');
+    showPage('login');
+    return;
+  }
+  if (user.role !== 'student') {
+    flash('Only students can submit applications.', 'info');
+    return;
+  }
+
+  const s = SCHOOLS.find(x => x.id === id);
+  const trades = s.trades.split(';').map(t => t.trim()).filter(Boolean);
+  const req = s.requirements || {
+    documents: [], application_fee: 25000, term_fees: 150000
+  };
+
+  window._applyDocs = [];
+
+  document.getElementById('apply-content').innerHTML = `
+    <a href="#" onclick="showDetail(${s.id})"
+       style="font-size:0.875rem;color:#2563eb;display:inline-block;margin-bottom:1rem">
+      ← Back
+    </a>
+
+    <div class="card" style="padding:1.5rem">
+      <h1 style="font-size:1.25rem;font-weight:700">Application & Payment</h1>
+      <p style="font-size:0.875rem;color:#64748b;margin-bottom:1rem">
+        ${s.name} • ${s.district}
+      </p>
+
+      <div style="background:#f8fafc;border-radius:0.75rem;padding:1rem;margin-bottom:1.25rem;font-size:0.875rem">
+        <div><strong>Marks requirement:</strong> ${req.marks || 'See school'}</div>
+        <div style="margin-top:0.5rem">
+          <strong>Documents needed:</strong>
+          <ul style="padding-left:1.25rem;margin-top:0.25rem">
+            ${(req.documents || []).map(d => `<li>${d}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+
+      <form onsubmit="submitApp(event, ${s.id})">
+        <div class="form-group">
+          <label>Select Programme / Trade *</label>
+          <select name="program" required>
+            <option value="">— Choose —</option>
+            ${trades.map(t => `<option value="${t}">${t}</option>`).join('')}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Level (optional)</label>
+          <select name="level">
+            <option value="">— Select level —</option>
+            <option>L1</option>
+            <option>L3</option>
+            <option>L4</option>
+            <option>L5</option>
+            <option>O'Level</option>
+            <option>A'Level</option>
+          </select>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem">
+          <div style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:0.5rem;padding:0.75rem">
+            <div style="font-size:0.75rem;color:#64748b">Application fee</div>
+            <div style="font-weight:700">${req.application_fee.toLocaleString()} RWF</div>
+          </div>
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:0.5rem;padding:0.75rem">
+            <div style="font-size:0.75rem;color:#64748b">Estimated term fees</div>
+            <div style="font-weight:700">${req.term_fees.toLocaleString()} RWF</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Upload documents *</label>
+          <p style="font-size:0.75rem;color:#64748b;margin-bottom:0.5rem">
+            PDF, JPG, PNG. Max ~2MB each.
+          </p>
+          <input type="file"
+                 id="doc-upload"
+                 accept=".pdf,.jpg,.jpeg,.png,.webp"
+                 multiple
+                 onchange="handleDocUpload(event)">
+          <ul id="doc-list" style="font-size:0.75rem;color:#64748b;margin-top:0.5rem"></ul>
+        </div>
+
+        <div class="form-group">
+          <label>Payment Method *</label>
+          <div style="display:flex;flex-direction:column;gap:0.5rem">
+            <label style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid #e2e8f0;border-radius:0.5rem;cursor:pointer">
+              <input type="radio" name="payment_method" value="MTN Mobile Money" required
+                     onchange="togglePayPhone(true)">
+              📱 MTN Mobile Money
+            </label>
+            <label style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid #e2e8f0;border-radius:0.5rem;cursor:pointer">
+              <input type="radio" name="payment_method" value="Airtel Money"
+                     onchange="togglePayPhone(true)">
+              📱 Airtel Money
+            </label>
+            <label style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid #e2e8f0;border-radius:0.5rem;cursor:pointer">
+              <input type="radio" name="payment_method" value="Bank Transfer"
+                     onchange="togglePayPhone(false)">
+              🏦 Bank Transfer
+            </label>
+            <label style="display:flex;align-items:center;gap:0.75rem;padding:0.75rem;border:1px solid #e2e8f0;border-radius:0.5rem;cursor:pointer">
+              <input type="radio" name="payment_method" value="Card (Visa/Mastercard)"
+                     onchange="togglePayPhone(false)">
+              💳 Card
+            </label>
+          </div>
+        </div>
+
+        <div id="pay-phone-wrap" class="form-group" style="display:none">
+          <label>Mobile Money number *</label>
+          <input name="pay_phone" type="tel" placeholder="07XXXXXXXX">
+        </div>
+
+        <div class="form-group">
+          <label>Notes (optional)</label>
+          <textarea name="notes" rows="2"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          Continue to Payment
+        </button>
+      </form>
+    </div>
+  `;
+
+  showPage('apply');
+}
+
+function handleDocUpload(e) {
+  const files = Array.from(e.target.files || []);
+  window._applyDocs = window._applyDocs || [];
+  const list = document.getElementById('doc-list');
+
+  files.forEach(f => {
+    if (f.size > 2.5 * 1024 * 1024) {
+      flash('File too large: ' + f.name, 'danger');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      window._applyDocs.push({
+        name: f.name,
+        type: f.type,
+        size: f.size,
+        data: reader.result
+      });
+      if (list) {
+        list.innerHTML = window._applyDocs.map(d =>
+          `<li>📎 ${d.name} (${Math.round(d.size / 1024)} KB)</li>`
+        ).join('');
+      }
+    };
+    reader.readAsDataURL(f);
+  });
+}
+
+function togglePayPhone(show) {
+  const el = document.getElementById('pay-phone-wrap');
+  if (el) el.style.display = show ? 'block' : 'none';
+}
+
+/* ===================== SUBMIT APPLICATION ===================== */
+function submitApp(e, schoolId) {
+  e.preventDefault();
+  const user = getCurrent();
+
+  if (!user || user.role !== 'student') {
+    flash('Only registered students can apply.', 'danger');
+    showPage('login');
+    return;
+  }
+
+  const fd = new FormData(e.target);
+  const method = fd.get('payment_method');
+  const payPhone = (fd.get('pay_phone') || '').trim();
+
+  if (method === 'MTN Mobile Money' || method === 'Airtel Money') {
+    const digits = payPhone.replace(/\s+/g, '');
+    if (!/^(\+?250|0)?7[2-9]\d{7}$/.test(digits) && digits.length < 10) {
+      flash('Enter a valid Rwanda Mobile Money number.', 'danger');
+      return;
+    }
+  }
+
+  const docs = window._applyDocs || [];
+  if (docs.length < 1) {
+    flash('Please upload at least one required document.', 'danger');
+    return;
+  }
+
+  const school = SCHOOLS.find(s => s.id === schoolId);
+  const req = school.requirements || { application_fee: 25000, term_fees: 150000 };
+  const amount = req.application_fee || 25000;
+  const ref = 'PSDMS-' + Date.now().toString().slice(-8) + '-' + user.id;
+  const apps = getApps();
+  const appId = Date.now();
+
+  apps.push({
+    id: appId,
+    userId: user.id,
+    userName: user.full_name,
+    userEmail: user.email,
+    schoolId: Number(schoolId),
+    schoolName: school.name,
+    district: school.district,
+    program: fd.get('program'),
+    level: fd.get('level') || '',
+    payment_method: method,
+    payment_phone: payPhone,
+    payment_status: 'Awaiting Payment',
+    payment_ref: ref,
+    amount: amount,
+    term_fees: req.term_fees || 0,
+    documents: docs.map(d => ({
+      name: d.name,
+      type: d.type,
+      size: d.size,
+      data: d.data
+    })),
+    status: 'Pending',
+    notes: fd.get('notes') || '',
+    created: new Date().toISOString()
+  });
+
+  try {
+    saveApps(apps);
+  } catch (err) {
+    flash('Could not save (storage full).', 'danger');
+    return;
+  }
+
+  getUsers()
+    .filter(u => u.role === 'director' &&
+      (Number(u.school_id) === Number(schoolId) ||
+       (u.school_name && u.school_name === school.name)))
+    .forEach(d => {
+      notifyUser(d.email, 'New student application',
+        (user.full_name || 'A student') + ' applied to ' + school.name, 'info');
+    });
+
+  notifyRole('admin', 'New application',
+    user.full_name + ' applied to ' + school.name, 'info');
+  notifyRole('deo', 'New application',
+    user.full_name + ' applied to ' + school.name, 'info');
+  notifyUser(user.email, 'Application submitted',
+    'You applied to ' + school.name + '. Complete payment with reference ' + ref + '.',
+    'success');
+
+  showPaymentInstructions(appId);
+}
+
+/* ===================== PAYMENT INSTRUCTIONS ===================== */
+function showPaymentInstructions(appId) {
+  const app = getApps().find(a => a.id === appId);
+  if (!app) return;
+
+  const method = app.payment_method;
+  const amount = app.amount || 25000;
+  const ref = app.payment_ref || '';
+  const phone = app.payment_phone || '';
+
+  let stepsHtml = '';
+  let dialBtn = '';
+
+  if (method === 'MTN Mobile Money') {
+    stepsHtml = `
+      <ol style="padding-left:1.25rem;font-size:0.875rem">
+        <li>On your MTN phone${phone ? ' (' + phone + ')' : ''}, dial the code or open MoMo App.</li>
+        <li>Choose Send Money / Pay.</li>
+        <li>Enter amount: <strong>${amount.toLocaleString()} RWF</strong></li>
+        <li>In reference field enter: <strong class="ussd-box">${ref}</strong></li>
+        <li>Confirm with PIN.</li>
+        <li>Return here and tap I have completed payment.</li>
+      </ol>`;
+    dialBtn = `
+      <a href="tel:*182*1*1%23"
+         class="pay-btn"
+         style="background:#facc15;color:#713f12;margin-bottom:0.75rem">
+        Open MTN USSD (*182*1*1#)
+      </a>`;
+  }
+  else if (method === 'Airtel Money') {
+    stepsHtml = `
+      <ol style="padding-left:1.25rem;font-size:0.875rem">
+        <li>On your Airtel phone${phone ? ' (' + phone + ')' : ''}, dial *500# or open Airtel Money.</li>
+        <li>Send <strong>${amount.toLocaleString()} RWF</strong></li>
+        <li>Reference: <strong class="ussd-box">${ref}</strong></li>
+        <li>Confirm with PIN.</li>
+        <li>Return here and tap I have completed payment.</li>
+      </ol>`;
+    dialBtn = `
+      <a href="tel:*500%23"
+         class="pay-btn"
+         style="background:#ef4444;color:#fff;margin-bottom:0.75rem">
+        Open Airtel USSD (*500#)
+      </a>`;
+  }
+  else if (method === 'Bank Transfer') {
+    stepsHtml = `
+      <ol style="padding-left:1.25rem;font-size:0.875rem">
+        <li>Transfer <strong>${amount.toLocaleString()} RWF</strong> to the school bank account.</li>
+        <li>Put this in description: <strong class="ussd-box">${ref}</strong></li>
+        <li>Keep the receipt.</li>
+        <li>Tap I have completed payment.</li>
+      </ol>`;
+  }
+  else {
+    stepsHtml = `
+      <ol style="padding-left:1.25rem;font-size:0.875rem">
+        <li>Pay <strong>${amount.toLocaleString()} RWF</strong> by card.</li>
+        <li>Use reference: <strong class="ussd-box">${ref}</strong></li>
+        <li>Keep the receipt, then tap I have completed payment.</li>
+      </ol>`;
+  }
+
+  document.getElementById('apply-content').innerHTML = `
+    <div class="card" style="overflow:hidden;max-width:28rem;margin:0 auto">
+      <div style="background:#059669;color:#fff;padding:1.5rem;text-align:center">
+        <div style="font-size:0.875rem;opacity:0.9">Pay application fee</div>
+        <div style="font-size:2rem;font-weight:800;margin-top:0.25rem">
+          ${amount.toLocaleString()} <span style="font-size:1rem">RWF</span>
+        </div>
+        <p style="font-size:0.875rem;margin-top:0.5rem;opacity:0.9">
+          ${app.schoolName || ''}
+        </p>
+      </div>
+
+      <div style="padding:1.25rem;display:flex;flex-direction:column;gap:1rem">
+        <div style="background:#f8fafc;border-radius:0.75rem;padding:1rem">
+          <div style="font-size:0.75rem;color:#64748b;margin-bottom:0.25rem">
+            Payment reference (copy this)
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem">
+            <code class="ussd-box" style="flex:1;word-break:break-all">${ref}</code>
+            <button type="button"
+                    onclick="copyPayRef('${ref}')"
+                    class="btn btn-primary"
+                    style="padding:0.5rem 0.75rem;font-size:0.75rem">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div style="background:#f8fafc;border-radius:0.75rem;padding:0.75rem;font-size:0.875rem;display:flex;justify-content:space-between">
+          <span style="color:#64748b">Method</span>
+          <span style="font-weight:600">${method}</span>
+        </div>
+
+        ${phone ? `
+          <div style="background:#f8fafc;border-radius:0.75rem;padding:0.75rem;font-size:0.875rem;display:flex;justify-content:space-between">
+            <span style="color:#64748b">From number</span>
+            <span style="font-weight:600">${phone}</span>
+          </div>
+        ` : ''}
+
+        <div style="background:#f8fafc;border-radius:0.75rem;padding:0.75rem;font-size:0.875rem;display:flex;justify-content:space-between">
+          <span style="color:#64748b">Status</span>
+          <span style="font-weight:600;color:#b45309">${app.payment_status}</span>
+        </div>
+
+        <div>
+          <h3 style="font-weight:700;margin-bottom:0.75rem">How to pay</h3>
+          ${dialBtn}
+          ${stepsHtml}
+        </div>
+
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:0.75rem;padding:0.75rem;font-size:0.75rem;color:#1e3a8a">
+          After you pay, keep the SMS/receipt.
+          Tap the green button so Admin can see your payment.
+        </div>
+
+        <button type="button"
+                onclick="confirmPaymentSent(${app.id})"
+                class="pay-btn"
+                style="background:#059669;color:#fff">
+          ✓ I have completed payment
+        </button>
+
+        <button type="button"
+                onclick="showPage('student')"
+                class="pay-btn"
+                style="background:#fff;border:1px solid #cbd5e1;color:#334155">
+          Pay later — My Dashboard
+        </button>
+      </div>
+    </div>
+  `;
+
+  showPage('apply');
+  window.scrollTo(0, 0);
+}
+
+function copyPayRef(ref) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(ref)
+      .then(() => flash('Reference copied.', 'success'))
+      .catch(() => prompt('Copy this reference:', ref));
+  } else {
+    prompt('Copy this reference:', ref);
+  }
+}
+
+function confirmPaymentSent(appId) {
+  const apps = getApps();
+  const a = apps.find(x => x.id === appId);
+  if (!a) return;
+
+  a.payment_status = 'Pending Confirmation';
+  a.paid_at = new Date().toISOString();
+  saveApps(apps);
+
+  notifyUser(a.userEmail, 'Payment submitted',
+    'You marked payment as sent for ' + (a.schoolName || 'school') +
+    ' (ref: ' + (a.payment_ref || '') + ').', 'info');
+
+  getUsers()
+    .filter(u => u.role === 'director' &&
+      (Number(u.school_id) === Number(a.schoolId) ||
+       (u.school_name && u.school_name === a.schoolName)))
+    .forEach(d => {
+      notifyUser(d.email, 'Payment pending',
+        (a.userName || 'Student') + ' submitted payment.', 'info');
+    });
+
+  notifyRole('admin', 'Payment pending confirmation',
+    (a.userName || 'Student') + ' — ' + (a.schoolName || '') +
+    ' ref ' + (a.payment_ref || ''), 'info');
+
+  flash('Payment marked as pending confirmation. Admin will verify.', 'success');
+  showPage('student');
+  renderNotifBell();
+}
+
+/* ===================== AUTH ===================== */
+function onRegRoleChange(role) {
+  const dist = document.getElementById('reg-district');
+  const sch = document.getElementById('reg-school');
+
+  if (dist) dist.style.display = role === 'deo' ? 'block' : 'none';
+
+  if (sch) {
+    sch.style.display = role === 'director' ? 'block' : 'none';
+    if (role === 'director') {
+      const sel = document.getElementById('reg-school-select');
+      if (sel && sel.options.length <= 1) {
+        SCHOOLS.forEach(s => {
+          const o = document.createElement('option');
+          o.value = s.id;
+          o.textContent = s.name + ' (' + s.district + ')';
+          sel.appendChild(o);
+        });
+      }
+    }
+  }
+}
+
+function isValidEmail(email) {
+  if (!email || email.length > 100 || email.indexOf(' ') >= 0) return false;
+  if (!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email)) return false;
+
+  const blocked = [
+    'test@test.com', 'a@a.com', 'admin@admin.com',
+    'user@user.com', 'fake@fake.com', 'example@example.com'
+  ];
+  if (blocked.some(b => email === b || email.startsWith(b))) return false;
+
+  const domain = email.split('@')[1] || '';
+  if (domain.length < 4 || /\.(test|invalid|localhost|local|example)$/i.test(domain)) {
+    return false;
+  }
+  return true;
+}
+
+function handleRegister(e) {
+  e.preventDefault();
+  try {
+    const fd = new FormData(e.target);
+    const full_name = (fd.get('full_name') || '').trim();
+    const email = (fd.get('email') || '').trim().toLowerCase();
+    const phone = (fd.get('phone') || '').trim();
+    const password = fd.get('password') || '';
+    const confirm = fd.get('confirm') || '';
+    let role = fd.get('role') || 'student';
+    const district = (fd.get('district') || '').trim();
+
+    if (!full_name || !email || !password) {
+      flash('Please fill in all required fields.', 'danger');
+      return;
+    }
+    if (!isValidEmail(email)) {
+      flash('Please enter a valid real email address.', 'danger');
+      return;
+    }
+    if (password.length < 6) {
+      flash('Password must be at least 6 characters.', 'danger');
+      return;
+    }
+    if (password !== confirm) {
+      flash('Passwords do not match.', 'danger');
+      return;
+    }
+    if (role === 'admin' || email === 'admin@gmail.com') {
+      flash('Admin account already exists and cannot be created via registration.', 'danger');
+      return;
+    }
+
+    let users = getUsers();
+
+    if (role === 'deo') {
+      if (users.find(u => u.role === 'deo')) {
+        flash('A DEO already registered. Ask Admin to add another.', 'danger');
+        return;
+      }
+      if (!district) {
+        flash('DEO must enter their district.', 'danger');
+        return;
+      }
+    }
+
+    let schoolId = null;
+    let schoolName = '';
+
+    if (role === 'director') {
+      schoolId = parseInt(fd.get('school_id') || '0', 10);
+      const school = SCHOOLS.find(s => s.id === schoolId);
+      if (!school) {
+        flash('Please select your school.', 'danger');
+        return;
+      }
+      if (users.find(u => u.role === 'director' && Number(u.school_id) === Number(schoolId))) {
+        flash('This school already has a Director account.', 'danger');
+        return;
+      }
+      schoolName = school.name;
+    }
+
+    if (users.find(u => (u.email || '').toLowerCase() === email)) {
+      flash('This email is already registered.', 'danger');
+      return;
+    }
+
+    if (role !== 'student' && role !== 'deo' && role !== 'director') {
+      role = 'student';
+    }
+
+    const user = {
+      id: Date.now(),
+      full_name,
+      email,
+      phone,
+      password,
+      role,
+      district: role === 'deo' ? district : '',
+      school_id: role === 'director' ? Number(schoolId) : null,
+      school_name: role === 'director' ? schoolName : '',
+      last_login: new Date().toISOString()
+    };
+
+    users.push(user);
+    saveUsers(users);
+    setCurrent(user);
+    addLoginLog(user);
+
+    flash('Registration successful! Welcome, ' + full_name + '.', 'success');
+
+    if (role === 'deo') {
+      showPage('deo');
+    } else if (role === 'director') {
+      flash('Registered as School Director for: ' + (schoolName || 'your school'), 'success');
+      showPage('director');
+    } else {
+      showPage('student');
+    }
+  } catch (err) {
+    flash('Registration failed: ' + (err.message || 'Unknown error'), 'danger');
+  }
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  try {
+    const fd = new FormData(e.target);
+    const email = (fd.get('email') || '').trim().toLowerCase();
+    const password = fd.get('password') || '';
+
+    if (!email || !password) {
+      flash('Please enter email and password.', 'danger');
+      return;
+    }
+
+    const users = getUsers();
+    const u = users.find(x =>
+      (x.email || '').toLowerCase() === email && x.password === password
+    );
+
+    if (!u) {
+      flash('Invalid email or password.', 'danger');
+      return;
+    }
+
+    const allUsers = getUsers();
+    const idx = allUsers.findIndex(x => x.id === u.id);
+    if (idx >= 0) {
+      allUsers[idx].last_login = new Date().toISOString();
+      saveUsers(allUsers);
+      u.last_login = allUsers[idx].last_login;
+    }
+
+    setCurrent(u);
+    addLoginLog(u);
+    notifyUser(u.email, 'Welcome back',
+      'You logged in to PSDMS as ' + u.role + '.', 'info');
+
+    flash('Welcome back, ' + u.full_name + '!', 'success');
+    renderNotifBell();
+
+    if (u.role === 'admin') showPage('admin');
+    else if (u.role === 'deo') showPage('deo');
+    else if (u.role === 'director') showPage('director');
+    else showPage('student');
+  } catch (err) {
+    flash('Login failed: ' + (err.message || 'Unknown error'), 'danger');
+  }
+}
+
+function logout() {
+  setCurrent(null);
+  flash('You have been logged out.', 'info');
+  showPage('home');
+}
+
+/* ===================== STATUS HELPER ===================== */
+function statusClass(s) {
+  if (s === 'Approved') return 'background:#d1fae5;color:#065f46';
+  if (s === 'Rejected') return 'background:#fee2e2;color:#991b1b';
+  if (s === 'Under Review') return 'background:#ccfbf1;color:#115e59';
+  return 'background:#f1f5f9;color:#334155';
+}
+
+/* ===================== STUDENT DASHBOARD ===================== */
+function renderStudent() {
+  const user = getCurrent();
+  if (!user) {
+    showPage('login');
+    return;
+  }
+
+  document.getElementById('stu-name').textContent = 'Hello, ' + user.full_name;
+
+  const apps = getApps()
+    .filter(a => a.userId === user.id)
+    .sort((a, b) => b.id - a.id);
+
+  const box = document.getElementById('stu-apps');
+
+  if (!apps.length) {
+    box.innerHTML = `
+      <div style="padding:2.5rem;text-align:center;color:#64748b">
+        <p>No applications yet.</p>
+        <button onclick="showPage('schools')"
+                style="background:none;border:none;color:#2563eb;font-weight:500;cursor:pointer;margin-top:0.5rem">
+          Browse schools & apply
+        </button>
+      </div>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>School</th>
+          <th>Programme</th>
+          <th>Status</th>
+          <th>Payment</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${apps.map(a => `
+          <tr>
+            <td style="font-weight:500">${a.schoolName}</td>
+            <td>
+              ${a.program}${a.level ? ' (' + a.level + ')' : ''}
+              ${a.amount ? ' · Fee: ' + a.amount.toLocaleString() + ' RWF' : ''}
+            </td>
+            <td>
+              <span class="badge" style="${statusClass(a.status)}">${a.status}</span>
+            </td>
+            <td>
+              <span class="badge" style="${
+                a.payment_status === 'Paid'
+                  ? 'background:#d1fae5;color:#065f46'
+                  : a.payment_status === 'Pending Confirmation'
+                    ? 'background:#dbeafe;color:#1e40af'
+                    : 'background:#ccfbf1;color:#115e59'
+              }">${a.payment_status}</span>
+              <div style="font-size:0.75rem;color:#94a3b8">${a.payment_method || ''}</div>
+              ${a.payment_status === 'Awaiting Payment'
+                ? `<button onclick="showPaymentInstructions(${a.id})"
+                           style="background:none;border:none;color:#2563eb;font-size:0.75rem;cursor:pointer">
+                     Complete payment
+                   </button>`
+                : ''}
+              ${a.payment_ref
+                ? `<div style="font-size:0.75rem;font-family:monospace;color:#94a3b8">${a.payment_ref}</div>`
+                : ''}
+            </td>
+            <td style="color:#64748b">${new Date(a.created).toLocaleDateString()}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>`;
+}
+
+/* ===================== ADMIN DASHBOARD ===================== */
+function renderAdmin() {
+  const user = getCurrent();
+  if (!user || user.role !== 'admin') {
+    flash('Access denied.', 'danger');
+    showPage('login');
+    return;
+  }
+
+  const apps = getApps().sort((a, b) => b.id - a.id);
+  const users = getUsers().sort((a, b) =>
+    (b.last_login || b.id) > (a.last_login || a.id) ? 1 : -1
+  );
+  const log = getLoginLog();
+
+  document.getElementById('admin-stats').innerHTML = `
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#2563eb">${SCHOOLS.length}</div>
+      <div style="font-size:0.75rem;color:#64748b">Schools</div>
+    </div>
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#059669">${users.length}</div>
+      <div style="font-size:0.75rem;color:#64748b">Registered Users</div>
+    </div>
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#d97706">
+        ${apps.filter(a => a.status === 'Pending').length}
+      </div>
+      <div style="font-size:0.75rem;color:#64748b">Pending Apps</div>
+    </div>
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#7c3aed">${log.length}</div>
+      <div style="font-size:0.75rem;color:#64748b">Login Events</div>
+    </div>
+  `;
+
+  document.getElementById('admin-user-count').textContent = users.length + ' user(s)';
+
+  document.getElementById('admin-users').innerHTML = users.length ? `
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Role</th>
+          <th>Last Login</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${users.map((u, i) => `
+          <tr>
+            <td style="color:#94a3b8">${i + 1}</td>
+            <td style="font-weight:500">${u.full_name || '—'}</td>
+            <td>
+              <a href="mailto:${u.email}" style="color:#2563eb">${u.email}</a>
+            </td>
+            <td>${u.phone || '—'}</td>
+            <td>
+              <span class="badge" style="${
+                u.role === 'admin'
+                  ? 'background:#f3e8ff;color:#6b21a8'
+                  : u.role === 'deo'
+                    ? 'background:#ccfbf1;color:#115e59'
+                    : 'background:#f1f5f9;color:#334155'
+              }">${u.role}</span>
+            </td>
+            <td style="font-size:0.75rem;color:#64748b">
+              ${u.last_login ? new Date(u.last_login).toLocaleString() : 'Never'}
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  ` : '<div style="padding:2rem;text-align:center;color:#94a3b8">No users yet</div>';
+
+  document.getElementById('admin-logins').innerHTML = log.length ? `
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${log.slice(0, 30).map(l => `
+          <tr>
+            <td style="font-size:0.75rem;color:#64748b">
+              ${new Date(l.time).toLocaleString()}
+            </td>
+            <td style="font-weight:500">${l.name || '—'}</td>
+            <td>
+              <a href="mailto:${l.email}" style="color:#2563eb">${l.email}</a>
+            </td>
+            <td>
+              <span class="badge" style="background:#f1f5f9">${l.role}</span>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  ` : '<div style="padding:2rem;text-align:center;color:#94a3b8">No login activity yet</div>';
+
+  document.getElementById('admin-apps').innerHTML = apps.length ? `
+    <table>
+      <thead>
+        <tr>
+          <th>Applicant</th>
+          <th>School</th>
+          <th>Status</th>
+          <th>Payment</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${apps.map(a => `
+          <tr>
+            <td>${a.userName}</td>
+            <td>${(a.schoolName || '').slice(0, 28)}…</td>
+            <td>
+              <span class="badge" style="background:#f1f5f9">${a.status}</span>
+            </td>
+            <td>
+              <span class="badge" style="${
+                a.payment_status === 'Paid'
+                  ? 'background:#d1fae5;color:#065f46'
+                  : 'background:#ccfbf1;color:#115e59'
+              }">${a.payment_status}</span>
+            </td>
+            <td>
+              <select onchange="updateApp(${a.id}, 'status', this.value)"
+                      style="font-size:0.75rem;border:1px solid #cbd5e1;border-radius:0.25rem;padding:0.25rem">
+                <option ${a.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                <option ${a.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
+                <option ${a.status === 'Approved' ? 'selected' : ''}>Approved</option>
+                <option ${a.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+              </select>
+              <select onchange="updateApp(${a.id}, 'payment_status', this.value)"
+                      style="font-size:0.75rem;border:1px solid #cbd5e1;border-radius:0.25rem;padding:0.25rem;margin-left:0.25rem">
+                <option ${a.payment_status === 'Unpaid' ? 'selected' : ''}>Unpaid</option>
+                <option ${a.payment_status === 'Pending' ? 'selected' : ''}>Pending</option>
+                <option ${a.payment_status === 'Paid' ? 'selected' : ''}>Paid</option>
+              </select>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  ` : '<div style="padding:2rem;text-align:center;color:#94a3b8">No applications yet</div>';
+}
+
+/* ===================== DIRECTOR DASHBOARD ===================== */
+function renderDirector() {
+  const user = getCurrent();
+  if (!user || user.role !== 'director') {
+    flash('Access denied.', 'danger');
+    showPage('login');
+    return;
+  }
+
+  const schoolId = Number(user.school_id);
+  const school = SCHOOLS.find(s => Number(s.id) === schoolId);
+  const schoolName = (school && school.name) || user.school_name || '';
+
+  document.getElementById('dir-title').textContent =
+    'School Director – ' + (user.full_name || '');
+
+  document.getElementById('dir-school-name').textContent = school
+    ? school.name + ' · ' + school.district + ' · You approve applications for this school only'
+    : (schoolName || 'No school linked');
+
+  if (!schoolId || !school) {
+    document.getElementById('dir-stats').innerHTML = '';
+    document.getElementById('dir-apps').innerHTML = `
+      <div style="padding:2rem;text-align:center;background:#fef3c7;color:#92400e">
+        <p style="font-weight:600">Your director account is not linked to a school.</p>
+        <p style="font-size:0.875rem;margin-top:0.5rem">
+          Log out and register again as School Director, then select your school.
+        </p>
+      </div>`;
+    return;
+  }
+
+  const allApps = getApps();
+  const apps = allApps
+    .filter(a => {
+      const aid = Number(a.schoolId);
+      if (aid && aid === schoolId) return true;
+      if (a.schoolName && schoolName && a.schoolName === schoolName) return true;
+      return false;
+    })
+    .sort((a, b) => b.id - a.id);
+
+  document.getElementById('dir-stats').innerHTML = `
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#4f46e5">${apps.length}</div>
+      <div style="font-size:0.75rem;color:#64748b">Applications</div>
+    </div>
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#d97706">
+        ${apps.filter(a => a.status === 'Pending' || a.status === 'Under Review').length}
+      </div>
+      <div style="font-size:0.75rem;color:#64748b">Awaiting decision</div>
+    </div>
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#059669">
+        ${apps.filter(a =>
+          a.payment_status === 'Paid' ||
+          a.payment_status === 'Pending Confirmation'
+        ).length}
+      </div>
+      <div style="font-size:0.75rem;color:#64748b">With payment</div>
+    </div>
+  `;
+
+  document.getElementById('dir-apps').innerHTML = apps.length ? `
+    <table style="min-width:720px">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Email</th>
+          <th>Programme</th>
+          <th>Documents</th>
+          <th>Payment</th>
+          <th>Status</th>
+          <th>Your decision</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${apps.map(a => `
+          <tr>
+            <td style="font-weight:500">${a.userName || '—'}</td>
+            <td style="font-size:0.75rem">
+              <a href="mailto:${a.userEmail || ''}" style="color:#2563eb">
+                ${a.userEmail || '—'}
+              </a>
+            </td>
+            <td style="font-size:0.75rem">
+              ${a.program || ''}${a.level ? ' (' + a.level + ')' : ''}
+            </td>
+            <td style="font-size:0.75rem">
+              ${(a.documents && a.documents.length)
+                ? a.documents.map(d => d.name).join(', ')
+                : '—'}
+            </td>
+            <td style="font-size:0.75rem">
+              <div style="font-weight:600;color:${
+                a.payment_status === 'Paid'
+                  ? '#059669'
+                  : a.payment_status === 'Pending Confirmation'
+                    ? '#2563eb'
+                    : '#b45309'
+              }">${a.payment_status || '—'}</div>
+              <div>${a.amount ? a.amount.toLocaleString() + ' RWF' : ''}</div>
+              <div style="font-family:monospace;color:#94a3b8">${a.payment_ref || ''}</div>
+            </td>
+            <td>
+              <span class="badge" style="${statusClass(a.status)}">${a.status}</span>
+            </td>
+            <td>
+              <div style="display:flex;flex-direction:column;gap:0.25rem;min-width:110px">
+                <button type="button"
+                        onclick="directorDecide(${a.id}, 'Approved')"
+                        style="font-size:0.75rem;background:#059669;color:#fff;border:none;padding:0.4rem 0.5rem;border-radius:0.5rem;cursor:pointer">
+                  ✓ Accept
+                </button>
+                <button type="button"
+                        onclick="directorDecide(${a.id}, 'Rejected')"
+                        style="font-size:0.75rem;background:#dc2626;color:#fff;border:none;padding:0.4rem 0.5rem;border-radius:0.5rem;cursor:pointer">
+                  ✕ Refuse
+                </button>
+                <button type="button"
+                        onclick="directorDecide(${a.id}, 'Under Review')"
+                        style="font-size:0.75rem;background:#fff;border:1px solid #cbd5e1;padding:0.4rem 0.5rem;border-radius:0.5rem;cursor:pointer">
+                  Under Review
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  ` : `
+    <div style="padding:2.5rem;text-align:center;color:#64748b">
+      <p style="font-weight:500">
+        No applications for <strong>${school.name}</strong> yet.
+      </p>
+    </div>
+  `;
+}
+
+function directorDecide(appId, status) {
+  const user = getCurrent();
+  if (!user || user.role !== 'director') {
+    flash('Only the School Director can accept or refuse.', 'danger');
+    return;
+  }
+  if (!status) return;
+
+  const apps = getApps();
+  const a = apps.find(x => x.id === appId);
+  if (!a) return;
+
+  const ok = Number(a.schoolId) === Number(user.school_id) ||
+             (a.schoolName && user.school_name && a.schoolName === user.school_name);
+
+  if (!ok) {
+    flash('You can only decide on applications for your own school.', 'danger');
+    return;
+  }
+
+  a.status = status;
+  a.decided_by = user.email;
+  a.decided_at = new Date().toISOString();
+  saveApps(apps);
+
+  const schoolLabel = a.schoolName || 'the school';
+
+  if (status === 'Approved') {
+    notifyUser(a.userEmail, 'Application Accepted',
+      'Your application to ' + schoolLabel + ' was ACCEPTED by the School Director.',
+      'success');
+    flash('Student application accepted.', 'success');
+  }
+  else if (status === 'Rejected') {
+    notifyUser(a.userEmail, 'Application Refused',
+      'Your application to ' + schoolLabel + ' was REFUSED by the School Director.',
+      'danger');
+    flash('Student application refused.', 'success');
+  }
+  else {
+    notifyUser(a.userEmail, 'Application Update',
+      'Your application to ' + schoolLabel + ' is now: ' + status + '.',
+      'info');
+    flash('Application marked as ' + status + '.', 'success');
+  }
+
+  notifyRole('admin', 'Director decision',
+    user.full_name + ' set ' + (a.userName || 'student') + ' → ' + status, 'info');
+  notifyRole('deo', 'Director decision',
+    user.full_name + ' set ' + (a.userName || 'student') + ' → ' + status, 'info');
+
+  renderDirector();
+  renderNotifBell();
+}
+
+/* ===================== UPDATE APP (ADMIN / DIRECTOR) ===================== */
+function updateApp(id, field, value) {
+  const me = getCurrent();
+  if (!me) {
+    flash('Please login.', 'danger');
+    return;
+  }
+
+  const apps = getApps();
+  const a = apps.find(x => x.id === id);
+  if (!a) return;
+
+  if (field === 'status') {
+    const owns = me.role === 'director' && (
+      Number(a.schoolId) === Number(me.school_id) ||
+      (a.schoolName && me.school_name && a.schoolName === me.school_name)
+    );
+    if (!owns) {
+      flash('Only the School Director of this school can approve or reject.', 'danger');
+      return;
+    }
+  }
+
+  if (field === 'payment_status') {
+    if (me.role !== 'admin') {
+      flash('Only the Admin can confirm payment status.', 'danger');
+      return;
+    }
+  }
+
+  a[field] = value;
+  if (field === 'status') {
+    a.decided_by = me.email;
+    a.decided_at = new Date().toISOString();
+  }
+  saveApps(apps);
+
+  if (field === 'payment_status' && value === 'Paid') {
+    notifyUser(a.userEmail, 'Payment confirmed',
+      'Your payment for ' + (a.schoolName || 'school') + ' was confirmed as Paid.',
+      'success');
+
+    getUsers()
+      .filter(u => u.role === 'director' &&
+        (Number(u.school_id) === Number(a.schoolId) ||
+         (u.school_name && u.school_name === a.schoolName)))
+      .forEach(d => {
+        notifyUser(d.email, 'Payment confirmed',
+          (a.userName || 'Student') + ' payment confirmed.', 'success');
+      });
+  }
+
+  flash('Updated.', 'success');
+  renderNotifBell();
+
+  if (me.role === 'admin') renderAdmin();
+  else if (me.role === 'director') renderDirector();
+  else if (me.role === 'deo') renderDeo();
+}
+
+/* ===================== DEO DASHBOARD ===================== */
+function renderDeo() {
+  const user = getCurrent();
+  if (!user || user.role !== 'deo') {
+    flash('Access denied.', 'danger');
+    showPage('login');
+    return;
+  }
+
+  document.getElementById('deo-title').textContent =
+    'DEO Dashboard – ' + (user.full_name || 'Officer');
+  document.getElementById('deo-schools-title').textContent =
+    'All private schools on PSDMS';
+
+  const schools = SCHOOLS;
+  const apps = getApps().sort((a, b) => b.id - a.id);
+
+  document.getElementById('deo-stats').innerHTML = `
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#2563eb">${schools.length}</div>
+      <div style="font-size:0.75rem;color:#64748b">Schools listed</div>
+    </div>
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#d97706">
+        ${apps.filter(a => a.status === 'Pending').length}
+      </div>
+      <div style="font-size:0.75rem;color:#64748b">Pending applications</div>
+    </div>
+    <div class="card" style="padding:1.25rem;text-align:center">
+      <div style="font-size:1.75rem;font-weight:700;color:#059669">${apps.length}</div>
+      <div style="font-size:0.75rem;color:#64748b">Total applications</div>
+    </div>
+  `;
+
+  document.getElementById('deo-schools').innerHTML = schools.map(s => `
+    <li style="padding:0.75rem 1.5rem;border-bottom:1px solid #f1f5f9;display:flex;flex-wrap:wrap;justify-content:space-between;gap:0.5rem;font-size:0.875rem">
+      <span style="font-weight:500">${s.name}</span>
+      <span style="font-size:0.75rem;color:#64748b">${s.district}</span>
+      <button type="button"
+              onclick="showDetail(${s.id})"
+              style="background:none;border:none;color:#2563eb;font-size:0.75rem;cursor:pointer">
+        View
+      </button>
+    </li>
+  `).join('');
+
+  document.getElementById('deo-apps').innerHTML = apps.length ? `
+    <table style="min-width:640px">
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Email</th>
+          <th>School</th>
+          <th>Status</th>
+          <th>Payment</th>
+          <th>Docs</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${apps.map(a => `
+          <tr>
+            <td>${a.userName || '—'}</td>
+            <td style="font-size:0.75rem">
+              <a href="mailto:${a.userEmail || ''}" style="color:#2563eb">
+                ${a.userEmail || '—'}
+              </a>
+            </td>
+            <td>${(a.schoolName || '').slice(0, 30)}</td>
+            <td>
+              <span class="badge" style="background:#f1f5f9">${a.status}</span>
+            </td>
+            <td style="font-size:0.75rem">
+              ${a.payment_status}
+              <div style="color:#94a3b8">
+                ${a.amount ? (a.amount.toLocaleString() + ' RWF') : ''}
+              </div>
+            </td>
+            <td style="font-size:0.75rem">
+              ${(a.documents && a.documents.length) || 0}
+            </td>
+            <td style="font-size:0.75rem;color:#64748b">
+              View only — School Director approves
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  ` : '<div style="padding:2rem;text-align:center;color:#94a3b8">No applications yet</div>';
+}
+
+/* ===================== INIT ===================== */
+updateAuthUI();
+
+if (document.getElementById('stat-schools')) {
+  document.getElementById('stat-schools').textContent = SCHOOLS.length;
+}
+
+renderHomeSchools();
+renderNotifBell();
+
+document.addEventListener('click', function (e) {
+  const wrap = document.getElementById('notif-wrap');
+  const panel = document.getElementById('notif-panel');
+  if (panel && wrap && !wrap.contains(e.target)) {
+    panel.classList.remove('show');
+  }
+});
+</script>
+
+</body>
+</html>
